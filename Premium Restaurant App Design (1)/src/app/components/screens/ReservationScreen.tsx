@@ -37,6 +37,10 @@ export default function ReservationScreen({ onBack, navigate }: ReservationScree
   const [guests, setGuests] = useState(2);
   const [section, setSection] = useState('Innenbereich');
   const [note, setNote] = useState('');
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [confirmed, setConfirmed] = useState(false);
 
   const cells = buildCalendar(viewYear, viewMonth);
@@ -46,7 +50,17 @@ export default function ReservationScreen({ onBack, navigate }: ReservationScree
   const prevMonth = () => { if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1); } else setViewMonth(m => m - 1); };
   const nextMonth = () => { if (viewMonth === 11) { setViewMonth(0); setViewYear(y => y + 1); } else setViewMonth(m => m + 1); };
 
-  const handleConfirm = () => { setConfirmed(true); };
+  const handleConfirm = () => {
+    const nextErrors: Record<string, string> = {};
+    if (!selectedDay) nextErrors.date = 'Bitte wählen Sie ein Datum.';
+    if (!name.trim()) nextErrors.name = 'Bitte geben Sie Ihren Namen ein.';
+    if (!contact.trim()) nextErrors.contact = 'Bitte geben Sie Ihre Telefonnummer ein.';
+    if (!email.trim()) nextErrors.email = 'Bitte geben Sie Ihre E-Mail-Adresse ein.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
+
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length === 0) setConfirmed(true);
+  };
 
   if (confirmed) {
     return (
@@ -65,6 +79,8 @@ export default function ReservationScreen({ onBack, navigate }: ReservationScree
               { label: 'Uhrzeit', value: selectedTime },
               { label: 'Gäste', value: `${guests} Personen` },
               { label: 'Bereich', value: section },
+              { label: 'Name', value: name },
+              { label: 'Kontakt', value: `${contact} · ${email}` },
             ].map(({ label, value }) => (
               <div key={label} className="flex justify-between py-2">
                 <span style={{ color: 'rgba(250,250,248,0.45)', fontFamily: "'DM Sans', sans-serif", fontSize: '14px' }}>{label}</span>
@@ -185,6 +201,22 @@ export default function ReservationScreen({ onBack, navigate }: ReservationScree
           </div>
         </div>
 
+        {/* Kontaktdaten */}
+        <div className="mb-5 space-y-3">
+          <p style={{ color: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 600 }}>Kontaktdaten</p>
+          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Vollständiger Name" className="w-full px-4 py-3 rounded-2xl focus:outline-none"
+            style={{ background: SURFACE, border: `1px solid ${errors.name ? '#ef4444' : 'rgba(255,255,255,0.08)'}`, color: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", fontSize: '14px' }} />
+          {errors.name && <p style={{ color: '#f87171', fontSize: '12px', fontFamily: "'DM Sans', sans-serif" }}>{errors.name}</p>}
+
+          <input value={contact} onChange={(e) => setContact(e.target.value)} placeholder="Telefonnummer" className="w-full px-4 py-3 rounded-2xl focus:outline-none"
+            style={{ background: SURFACE, border: `1px solid ${errors.contact ? '#ef4444' : 'rgba(255,255,255,0.08)'}`, color: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", fontSize: '14px' }} />
+          {errors.contact && <p style={{ color: '#f87171', fontSize: '12px', fontFamily: "'DM Sans', sans-serif" }}>{errors.contact}</p>}
+
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail-Adresse" className="w-full px-4 py-3 rounded-2xl focus:outline-none"
+            style={{ background: SURFACE, border: `1px solid ${errors.email ? '#ef4444' : 'rgba(255,255,255,0.08)'}`, color: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", fontSize: '14px' }} />
+          {errors.email && <p style={{ color: '#f87171', fontSize: '12px', fontFamily: "'DM Sans', sans-serif" }}>{errors.email}</p>}
+        </div>
+
         {/* Note */}
         <div className="mb-4">
           <p style={{ color: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 600, marginBottom: '10px' }}>Besondere Wünsche</p>
@@ -200,6 +232,7 @@ export default function ReservationScreen({ onBack, navigate }: ReservationScree
           {selectedDay ? `Reservierung für ${selectedDay}. ${MONTHS[viewMonth]} um ${selectedTime}` : 'Bitte Datum wählen'}
         </motion.button>
       </div>
+      {errors.date && <p className="px-5 pb-2" style={{ color: '#f87171', fontSize: '12px', fontFamily: "'DM Sans', sans-serif" }}>{errors.date}</p>}
 
       {navigate && <BottomNav activeScreen="reservation" navigate={navigate} />}
     </div>

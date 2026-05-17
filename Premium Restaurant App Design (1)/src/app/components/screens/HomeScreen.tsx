@@ -37,11 +37,11 @@ const heroSlides = [
 ];
 
 const categories = [
-  { id: 'empfehlung', label: 'Empfehlungen', active: true },
-  { id: 'vorspeisen', label: 'Vorspeisen', active: false },
-  { id: 'hauptgerichte', label: 'Hauptgerichte', active: false },
-  { id: 'desserts', label: 'Desserts', active: false },
-  { id: 'getraenke', label: 'Getränke', active: false },
+  { id: 'empfehlung', label: 'Empfehlungen' },
+  { id: 'vorspeisen', label: 'Vorspeisen' },
+  { id: 'hauptgerichte', label: 'Hauptgerichte' },
+  { id: 'desserts', label: 'Desserts' },
+  { id: 'getraenke', label: 'Getränke' },
 ];
 
 const chefPicks: FoodItem[] = [
@@ -66,6 +66,17 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
   const [heroIndex, setHeroIndex] = useState(0);
   const [activeCategory, setActiveCategory] = useState('empfehlung');
   const heroRef = useRef<NodeJS.Timeout | null>(null);
+
+  const normalizedCategory = (value: string) => value.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue');
+
+  const matchesCategory = (item: FoodItem) => {
+    if (activeCategory === 'empfehlung') return true;
+    return normalizedCategory(item.category) === activeCategory;
+  };
+
+  const filteredChefPicks = chefPicks.filter(matchesCategory);
+  const filteredPopularDishes = popularDishes.filter(matchesCategory);
+  const filteredSeasonals = seasonals.filter(matchesCategory);
 
   const cycleHero = (i: number) => {
     setHeroIndex(i);
@@ -326,7 +337,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
           </div>
 
           <div className="px-5 space-y-3">
-            {popularDishes.map((dish, idx) => (
+            {(filteredPopularDishes.length > 0 ? filteredPopularDishes : popularDishes).map((dish, idx) => (
               <motion.button
                 key={dish.id}
                 onClick={() => navigate('food-detail', dish)}

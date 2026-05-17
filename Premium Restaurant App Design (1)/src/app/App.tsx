@@ -11,10 +11,10 @@ export default function App() {
 
       {/* Phone frame */}
       <div
-        className="relative flex flex-col overflow-hidden shadow-2xl"
+        className="relative flex flex-col overflow-hidden shadow-2xl max-w-full max-h-full"
         style={{
-          width: '390px',
-          height: '844px',
+          width: 'min(390px, 100vw)',
+          height: 'min(844px, 100vh)',
           borderRadius: '44px',
           border: '1px solid rgba(255,255,255,0.1)',
           boxShadow: '0 80px 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06), inset 0 0 0 1px rgba(255,255,255,0.04)',

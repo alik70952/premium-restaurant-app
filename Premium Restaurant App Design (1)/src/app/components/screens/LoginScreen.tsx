@@ -1,3 +1,4 @@
+import loginHeroImage from '../../../assets/images/login-hero.svg';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
@@ -24,7 +25,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1661422586023-681ea60507e2?w=800&q=90"
+          src={loginHeroImage}
           alt=""
           className="w-full h-full object-cover"
           style={{ objectPosition: 'center top' }}

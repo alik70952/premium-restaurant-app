@@ -1,3 +1,6 @@
+import onboardingCulinaryImage from '../../../assets/images/onboarding-culinary.svg';
+import onboardingTableImage from '../../../assets/images/onboarding-table.svg';
+import onboardingDessertImage from '../../../assets/images/onboarding-dessert.svg';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
@@ -9,19 +12,19 @@ interface OnboardingScreenProps {
 
 const slides = [
   {
-    image: 'https://images.unsplash.com/photo-1600663791817-d74f5196ba29?w=800&q=90',
+    image: onboardingCulinaryImage,
     eyebrow: 'HANDWERK & LEIDENSCHAFT',
     title: 'Kulinarik auf\nhöchstem Niveau',
     description: 'Erleben Sie exquisite Gerichte, kreiert von unseren Meisterköchen mit feinsten Zutaten aus der Schweizer Region.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1748551204300-f227d5af350f?w=800&q=90',
+    image: onboardingTableImage,
     eyebrow: 'SCHNELL & ELEGANT',
     title: 'Reservieren in\nwenigen Sekunden',
     description: 'Sichern Sie sich Ihren exklusiven Tisch im Handumdrehen — flexibel, zuverlässig und absolut stressfrei.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1556940185-a527df03afcd?w=800&q=90',
+    image: onboardingDessertImage,
     eyebrow: 'VIP MEMBERSHIP',
     title: 'Exklusive Vorteile\nfür Stammgäste',
     description: 'Sammeln Sie Treuepunkte, erhalten Sie Zugang zu besonderen Events und genießen Sie einzigartige Erlebnisse.',

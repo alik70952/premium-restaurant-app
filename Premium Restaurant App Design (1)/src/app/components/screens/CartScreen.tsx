@@ -1,3 +1,5 @@
+import cartBreadImage from '../../../assets/images/cart-bread.svg';
+import cartAioliImage from '../../../assets/images/cart-aioli.svg';
 import { ArrowLeft, Plus, Minus, Trash2, Tag, ShoppingBag, ChevronRight, Zap } from 'lucide-react';
 import { CartItem } from '../AppRouter';
 import { useState } from 'react';
@@ -17,8 +19,8 @@ const CARD = '#141414';
 const SURFACE = '#1C1C1C';
 
 const suggestions = [
-  { id: 'sug1', name: 'Hausgemachtes Brot', price: 8, image: 'https://images.unsplash.com/photo-1589091637765-cbd0eff73a44?w=200&q=80' },
-  { id: 'sug2', name: 'Trüffel-Aioli', price: 5, image: 'https://images.unsplash.com/photo-1606419420761-4f2aa891ed19?w=200&q=80' },
+  { id: 'sug1', name: 'Hausgemachtes Brot', price: 8, image: cartBreadImage },
+  { id: 'sug2', name: 'Trüffel-Aioli', price: 5, image: cartAioliImage },
 ];
 
 export default function CartScreen({ cart, onBack, onCheckout, updateQuantity, removeFromCart }: CartScreenProps) {

@@ -1,14 +1,3 @@
-import heroSlidePrimaryImage from '../../../assets/images/hero-premium-photo.svg';
-import heroSlideSignatureImage from '../../../assets/images/hero-premium-photo.svg';
-import heroSlideAmbienceImage from '../../../assets/images/hero-premium-photo.svg';
-import chefPickSteakImage from '../../../assets/images/chef-steak-photo.svg';
-import chefPickSalmonImage from '../../../assets/images/chef-salmon-photo.svg';
-import chefPickAppetizerImage from '../../../assets/images/chef-appetizer-photo.svg';
-import popularPastaImage from '../../../assets/images/popular-pasta-photo.svg';
-import popularFondantImage from '../../../assets/images/popular-fondant-photo.svg';
-import popularSalmonVariationImage from '../../../assets/images/popular-salmon-variation-photo.svg';
-import specialChefTableImage from '../../../assets/images/special-chef-table-photo.svg';
-import specialSeasonalImage from '../../../assets/images/special-seasonal-photo.svg';
 import fallbackFoodImage from '../../../assets/images/chef-steak-photo.svg';
 import { useState, useRef } from 'react';
 import { Search, ShoppingCart, Bell, Star, ChevronRight, Flame, Award, Clock } from 'lucide-react';
@@ -22,6 +11,21 @@ interface HomeScreenProps {
   cartCount: number;
 }
 
+
+const REMOTE_IMAGES = {
+  heroSlidePrimaryImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80',
+  heroSlideSignatureImage: 'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1600&q=80',
+  heroSlideAmbienceImage: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1600&q=80',
+  chefPickSteakImage: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80',
+  chefPickSalmonImage: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1200&q=80',
+  chefPickAppetizerImage: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80',
+  popularPastaImage: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=80',
+  popularFondantImage: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1200&q=80',
+  popularSalmonVariationImage: 'https://images.unsplash.com/photo-1485921325833-c519f76c4927?auto=format&fit=crop&w=1200&q=80',
+  specialChefTableImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80',
+  specialSeasonalImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80',
+} as const;
+
 const GOLD = '#C9A961';
 const DARK = '#0A0A0A';
 const CARD = '#141414';
@@ -29,19 +33,19 @@ const SURFACE = '#1C1C1C';
 
 const heroSlides = [
   {
-    image: heroSlidePrimaryImage,
+    image: REMOTE_IMAGES.heroSlidePrimaryImage,
     tag: 'CHEF EMPFEHLUNG',
     title: 'Abendmenü\nSignatur',
     sub: 'Heute ab 18:00 Uhr',
   },
   {
-    image: heroSlideSignatureImage,
+    image: REMOTE_IMAGES.heroSlideSignatureImage,
     tag: 'NEUES ANGEBOT',
     title: 'Tasting\nMenü',
     sub: '5 Gänge · CHF 145',
   },
   {
-    image: heroSlideAmbienceImage,
+    image: REMOTE_IMAGES.heroSlideAmbienceImage,
     tag: 'SAISON SPECIAL',
     title: 'Sommer\nSpezialitäten',
     sub: 'Frisch & Saisonal',
@@ -57,20 +61,20 @@ const categories = [
 ];
 
 const chefPicks: FoodItem[] = [
-  { id: 'c1', name: 'Dry Aged Rindersteak', description: 'Rotweinreduktion & Trüffelkartoffeln', price: 58, image: chefPickSteakImage, category: 'Hauptgerichte', rating: 4.9, reviews: 203 },
-  { id: 'c2', name: 'Atlantik-Lachs', description: 'Kräuterbutter & Saisongemüse', price: 42.5, image: chefPickSalmonImage, category: 'Hauptgerichte', rating: 4.8, reviews: 124 },
-  { id: 'c3', name: 'Gourmet Vorspeise', description: 'Auswahl feiner Spezialitäten', price: 28.5, image: chefPickAppetizerImage, category: 'Vorspeisen', rating: 4.7, reviews: 89 },
+  { id: 'c1', name: 'Dry Aged Rindersteak', description: 'Rotweinreduktion & Trüffelkartoffeln', price: 58, image: REMOTE_IMAGES.chefPickSteakImage, category: 'Hauptgerichte', rating: 4.9, reviews: 203 },
+  { id: 'c2', name: 'Atlantik-Lachs', description: 'Kräuterbutter & Saisongemüse', price: 42.5, image: REMOTE_IMAGES.chefPickSalmonImage, category: 'Hauptgerichte', rating: 4.8, reviews: 124 },
+  { id: 'c3', name: 'Gourmet Vorspeise', description: 'Auswahl feiner Spezialitäten', price: 28.5, image: REMOTE_IMAGES.chefPickAppetizerImage, category: 'Vorspeisen', rating: 4.7, reviews: 89 },
 ];
 
 const popularDishes: FoodItem[] = [
-  { id: 'p1', name: 'Hausgemachte Pasta', description: 'Trüffel-Sahnesauce & Parmesan', price: 32, image: popularPastaImage, category: 'Hauptgerichte', rating: 4.6, reviews: 156 },
-  { id: 'p2', name: 'Schokoladen-Fondant', description: 'Mit Vanilleeis & Karamell', price: 18, image: popularFondantImage, category: 'Desserts', rating: 4.8, reviews: 211 },
-  { id: 'p3', name: 'Lachsvariation', description: 'Auf Kräutersalat & Rote Bete', price: 36, image: popularSalmonVariationImage, category: 'Hauptgerichte', rating: 4.7, reviews: 98 },
+  { id: 'p1', name: 'Hausgemachte Pasta', description: 'Trüffel-Sahnesauce & Parmesan', price: 32, image: REMOTE_IMAGES.popularPastaImage, category: 'Hauptgerichte', rating: 4.6, reviews: 156 },
+  { id: 'p2', name: 'Schokoladen-Fondant', description: 'Mit Vanilleeis & Karamell', price: 18, image: REMOTE_IMAGES.popularFondantImage, category: 'Desserts', rating: 4.8, reviews: 211 },
+  { id: 'p3', name: 'Lachsvariation', description: 'Auf Kräutersalat & Rote Bete', price: 36, image: REMOTE_IMAGES.popularSalmonVariationImage, category: 'Hauptgerichte', rating: 4.7, reviews: 98 },
 ];
 
 const seasonals: FoodItem[] = [
-  { id: 's1', name: 'Chefs Table Menü', description: 'Exklusives 7-Gänge-Erlebnis', price: 165, image: specialChefTableImage, category: 'Special', rating: 5.0, reviews: 42 },
-  { id: 's2', name: 'Saisonale Spezialität', description: 'Frische Zutaten vom Markt', price: 38, image: specialSeasonalImage, category: 'Hauptgerichte', rating: 4.9, reviews: 67 },
+  { id: 's1', name: 'Chefs Table Menü', description: 'Exklusives 7-Gänge-Erlebnis', price: 165, image: REMOTE_IMAGES.specialChefTableImage, category: 'Special', rating: 5.0, reviews: 42 },
+  { id: 's2', name: 'Saisonale Spezialität', description: 'Frische Zutaten vom Markt', price: 38, image: REMOTE_IMAGES.specialSeasonalImage, category: 'Hauptgerichte', rating: 4.9, reviews: 67 },
 ];
 
 export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
@@ -114,7 +118,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <img src={heroSlides[heroIndex].image} alt="" className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
+              <img src={heroSlides[heroIndex].image} alt="" className="w-full h-full object-cover" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackFoodImage; }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.05) 30%, rgba(10,10,10,0.7) 65%, rgba(10,10,10,0.97) 100%)' }} />
             </motion.div>
           </AnimatePresence>
@@ -296,7 +300,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
                 whileTap={{ scale: 0.97 }}
               >
                 <div className="relative" style={{ height: '130px' }}>
-                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
+                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackFoodImage; }} />
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(20,20,20,0.8) 100%)' }} />
                   <div className="absolute top-2 right-2 flex items-center gap-1 rounded-full px-2 py-1" style={{ background: 'rgba(10,10,10,0.75)', backdropFilter: 'blur(8px)' }}>
                     <Star className="w-3 h-3" style={{ color: GOLD, fill: GOLD }} />
@@ -361,7 +365,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
                 transition={{ delay: 0.05 * idx }}
               >
                 <div className="relative rounded-xl overflow-hidden flex-shrink-0" style={{ width: '80px', height: '80px' }}>
-                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
+                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackFoodImage; }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p style={{ color: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 600, marginBottom: '3px' }}>{dish.name}</p>
@@ -399,7 +403,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
                 style={{ width: '240px', height: '160px' }}
                 whileTap={{ scale: 0.97 }}
               >
-                <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
+                <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackFoodImage; }} />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.8) 100%)' }} />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <p style={{ color: GOLD, fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '3px' }}>{dish.category}</p>

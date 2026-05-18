@@ -25,6 +25,9 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           src={splashHeroImage}
           alt="Restaurant"
           className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
         {/* Deep cinematic overlay */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.35) 40%, rgba(8,8,8,0.7) 70%, rgba(8,8,8,0.97) 100%)' }} />

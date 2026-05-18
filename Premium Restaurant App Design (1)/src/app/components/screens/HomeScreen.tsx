@@ -108,7 +108,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
       <div className="flex-1 overflow-y-auto" style={{ paddingBottom: '90px' }}>
 
         {/* ── HERO SECTION ── */}
-        <div className="relative" style={{ height: '310px' }}>
+        <div className="relative bg-[#141414]" style={{ height: '310px' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={heroIndex}
@@ -118,7 +118,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <img src={heroSlides[heroIndex].image} alt="" className="w-full h-full object-cover" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackFoodImage; }} />
+              <img src={heroSlides[heroIndex].image} alt="" className="w-full h-full object-cover" loading="eager" decoding="async" fetchPriority="high" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = fallbackFoodImage; }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.05) 30%, rgba(10,10,10,0.7) 65%, rgba(10,10,10,0.97) 100%)' }} />
             </motion.div>
           </AnimatePresence>

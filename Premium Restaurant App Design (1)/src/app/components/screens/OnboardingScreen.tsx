@@ -55,7 +55,7 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
           exit={{ opacity: 0, scale: 0.97 }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <img src={slide.image} alt="" className="w-full h-full object-cover" />
+          <img src={slide.image} alt="" className="w-full h-full object-cover" loading={currentSlide === 0 ? "eager" : "lazy"} decoding="async" fetchPriority={currentSlide === 0 ? "high" : "auto"} />
           <div
             className="absolute inset-0"
             style={{ background: 'linear-gradient(180deg, rgba(8,8,8,0.25) 0%, rgba(8,8,8,0.05) 25%, rgba(8,8,8,0.55) 55%, rgba(8,8,8,0.96) 80%, #080808 100%)' }}

@@ -28,6 +28,9 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
           src={loginHeroImage}
           alt=""
           className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           style={{ objectPosition: 'center top' }}
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(8,8,8,0.5) 0%, rgba(8,8,8,0.6) 35%, rgba(8,8,8,0.92) 65%, #080808 100%)' }} />

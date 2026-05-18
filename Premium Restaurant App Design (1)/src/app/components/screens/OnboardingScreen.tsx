@@ -1,5 +1,3 @@
-import onboardingTableImage from '../../../assets/images/onboarding-table.svg';
-import onboardingDessertImage from '../../../assets/images/onboarding-dessert.svg';
 import { useCallback, useEffect, useRef, useState, type TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
@@ -17,13 +15,13 @@ const slides = [
     description: 'Erleben Sie exquisite Gerichte, kreiert von unseren Meisterköchen mit feinsten Zutaten aus der Schweizer Region.',
   },
   {
-    image: onboardingTableImage,
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80',
     eyebrow: 'SCHNELL & ELEGANT',
     title: 'Reservieren in\nwenigen Sekunden',
     description: 'Sichern Sie sich Ihren exklusiven Tisch im Handumdrehen — flexibel, zuverlässig und absolut stressfrei.',
   },
   {
-    image: onboardingDessertImage,
+    image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1600&q=80',
     eyebrow: 'VIP MEMBERSHIP',
     title: 'Exklusive Vorteile\nfür Stammgäste',
     description: 'Sammeln Sie Treuepunkte, erhalten Sie Zugang zu besonderen Events und genießen Sie einzigartige Erlebnisse.',
@@ -32,14 +30,35 @@ const slides = [
 
 export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [firstSlideImageFailed, setFirstSlideImageFailed] = useState(false);
+  const [failedSlideImages, setFailedSlideImages] = useState<Record<number, boolean>>({});
   const touchStartXRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const preloadedImage = new Image();
-    preloadedImage.loading = 'eager';
-    preloadedImage.decoding = 'async';
-    preloadedImage.src = slides[0].image;
+    let isMounted = true;
+
+    slides.forEach((slide, slideIndex) => {
+      const preloadedImage = new Image();
+      preloadedImage.loading = 'eager';
+      preloadedImage.decoding = 'async';
+      preloadedImage.onload = () => {
+        if (!isMounted) return;
+        setFailedSlideImages((failedImages) => {
+          if (!failedImages[slideIndex]) return failedImages;
+          const nextFailedImages = { ...failedImages };
+          delete nextFailedImages[slideIndex];
+          return nextFailedImages;
+        });
+      };
+      preloadedImage.onerror = () => {
+        if (!isMounted) return;
+        setFailedSlideImages((failedImages) => ({ ...failedImages, [slideIndex]: true }));
+      };
+      preloadedImage.src = slide.image;
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const next = useCallback(() => {
@@ -51,8 +70,20 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
     setCurrentSlide((slideIndex) => Math.max(0, slideIndex - 1));
   }, []);
 
-  const handleFirstSlideImageError = useCallback(() => {
-    setFirstSlideImageFailed((didFail) => (didFail ? didFail : true));
+  const handleSlideImageLoad = useCallback((slideIndex: number) => {
+    setFailedSlideImages((failedImages) => {
+      if (!failedImages[slideIndex]) return failedImages;
+      const nextFailedImages = { ...failedImages };
+      delete nextFailedImages[slideIndex];
+      return nextFailedImages;
+    });
+  }, []);
+
+  const handleSlideImageError = useCallback((slideIndex: number) => {
+    setFailedSlideImages((failedImages) => {
+      if (failedImages[slideIndex]) return failedImages;
+      return { ...failedImages, [slideIndex]: true };
+    });
   }, []);
 
   const handleTouchStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
@@ -79,7 +110,7 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
   }, [next, previous]);
 
   const slide = slides[currentSlide];
-  const showCurrentImage = currentSlide !== 0 || !firstSlideImageFailed;
+  const showCurrentImage = !failedSlideImages[currentSlide];
 
   return (
     <div
@@ -111,7 +142,8 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              onError={currentSlide === 0 && !firstSlideImageFailed ? handleFirstSlideImageError : undefined}
+              onLoad={() => handleSlideImageLoad(currentSlide)}
+              onError={() => handleSlideImageError(currentSlide)}
             />
           )}
           <div

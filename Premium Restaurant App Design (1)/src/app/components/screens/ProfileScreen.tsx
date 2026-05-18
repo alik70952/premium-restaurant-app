@@ -1,7 +1,6 @@
 import profileAvatarImage from '../../../assets/images/profile-avatar.svg';
 import { ArrowLeft, ChevronRight, Bell, Globe, HelpCircle, Shield, LogOut, CreditCard, MapPin, Crown, Edit3 } from 'lucide-react';
 import { motion } from 'motion/react';
-import StatusBar from '../StatusBar';
 import BottomNav from '../BottomNav';
 import { Screen } from '../AppRouter';
 
@@ -48,7 +47,6 @@ const settingsSections = [
 export default function ProfileScreen({ onBack, navigate }: ProfileScreenProps) {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: '#0A0A0A' }}>
-      <StatusBar />
       <div className="flex items-center gap-4 px-5 pb-4 pt-2 flex-shrink-0">
         <motion.button onClick={onBack} className="flex items-center justify-center rounded-full" style={{ width: '40px', height: '40px', background: SURFACE, border: '1px solid rgba(255,255,255,0.08)' }} whileTap={{ scale: 0.92 }}>
           <ArrowLeft className="w-5 h-5" style={{ color: '#FAFAF8' }} />

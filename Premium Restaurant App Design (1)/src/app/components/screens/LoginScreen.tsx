@@ -2,7 +2,6 @@ import loginHeroImage from '../../../assets/images/login-hero.svg';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
-import StatusBar from '../StatusBar';
 
 interface LoginScreenProps {
   onLogin: () => void;
@@ -36,7 +35,6 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(8,8,8,0.5) 0%, rgba(8,8,8,0.6) 35%, rgba(8,8,8,0.92) 65%, #080808 100%)' }} />
       </div>
 
-      <StatusBar transparent light />
 
       {/* Logo area */}
       <div className="absolute top-20 left-0 right-0 flex flex-col items-center">

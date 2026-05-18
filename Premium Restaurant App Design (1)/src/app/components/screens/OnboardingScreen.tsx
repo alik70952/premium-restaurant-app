@@ -1,7 +1,6 @@
-import onboardingCulinaryImage from '../../../assets/images/onboarding-culinary.svg';
 import onboardingTableImage from '../../../assets/images/onboarding-table.svg';
 import onboardingDessertImage from '../../../assets/images/onboarding-dessert.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
 import StatusBar from '../StatusBar';
@@ -12,7 +11,7 @@ interface OnboardingScreenProps {
 
 const slides = [
   {
-    image: onboardingCulinaryImage,
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80',
     eyebrow: 'HANDWERK & LEIDENSCHAFT',
     title: 'Kulinarik auf\nhöchstem Niveau',
     description: 'Erleben Sie exquisite Gerichte, kreiert von unseren Meisterköchen mit feinsten Zutaten aus der Schweizer Region.',
@@ -33,6 +32,12 @@ const slides = [
 
 export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [firstSlideImageFailed, setFirstSlideImageFailed] = useState(false);
+
+  useEffect(() => {
+    const preloadedImage = new Image();
+    preloadedImage.src = slides[0].image;
+  }, []);
 
   const next = () => {
     if (currentSlide < slides.length - 1) setCurrentSlide(currentSlide + 1);
@@ -55,9 +60,19 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
           exit={{ opacity: 0, scale: 0.97 }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <img src={slide.image} alt="" className="w-full h-full object-cover" loading={currentSlide === 0 ? "eager" : "lazy"} decoding="async" fetchPriority={currentSlide === 0 ? "high" : "auto"} />
+          {!firstSlideImageFailed || currentSlide !== 0 ? (
+            <img
+              src={slide.image}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover z-0"
+              loading={currentSlide === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
+              onError={currentSlide === 0 ? () => setFirstSlideImageFailed(true) : undefined}
+            />
+          ) : null}
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 z-10"
             style={{ background: 'linear-gradient(180deg, rgba(8,8,8,0.25) 0%, rgba(8,8,8,0.05) 25%, rgba(8,8,8,0.55) 55%, rgba(8,8,8,0.96) 80%, #080808 100%)' }}
           />
         </motion.div>

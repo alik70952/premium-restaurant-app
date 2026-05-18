@@ -66,7 +66,7 @@ export default function AppRouter() {
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden" style={{ background: '#0A0A0A' }}>
+    <div className="relative h-full w-full max-w-full overflow-hidden" style={{ background: '#0A0A0A' }}>
       {currentScreen === 'splash' && <SplashScreen onComplete={() => navigate('onboarding')} />}
       {currentScreen === 'onboarding' && <OnboardingScreen onComplete={() => navigate('login')} />}
       {currentScreen === 'login' && <LoginScreen onLogin={() => navigate('home')} />}

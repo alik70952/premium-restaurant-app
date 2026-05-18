@@ -3,7 +3,6 @@ import { useState, useRef } from 'react';
 import { Search, ShoppingCart, Bell, Star, ChevronRight, Flame, Award, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Screen, FoodItem } from '../AppRouter';
-import StatusBar from '../StatusBar';
 import BottomNav from '../BottomNav';
 
 interface HomeScreenProps {
@@ -102,7 +101,6 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: DARK }}>
-      <StatusBar />
 
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto" style={{ paddingBottom: '90px' }}>

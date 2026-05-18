@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { ArrowLeft, MapPin, Check, ChevronRight, Clock } from 'lucide-react';
 import { CartItem } from '../AppRouter';
 import { motion, AnimatePresence } from 'motion/react';
-import StatusBar from '../StatusBar';
 
 interface CheckoutScreenProps {
   cart: CartItem[];
@@ -68,7 +67,6 @@ export default function CheckoutScreen({ cart, onBack, onComplete }: CheckoutScr
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden" style={{ background: '#0A0A0A' }}>
-      <StatusBar />
 
       {/* Header */}
       <div className="flex items-center gap-4 px-5 pb-4 pt-2 flex-shrink-0">

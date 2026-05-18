@@ -21,7 +21,7 @@ export default function BottomNav({ activeScreen, navigate }: BottomNavProps) {
         background: 'rgba(10,10,10,0.92)',
         backdropFilter: 'blur(20px)',
         borderTop: '1px solid rgba(255,255,255,0.07)',
-        paddingBottom: '28px',
+        paddingBottom: 'max(16px, env(safe-area-inset-bottom, 0px))',
       }}
     >
       <div className="flex items-center justify-around px-2 pt-3 pb-1">

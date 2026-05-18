@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
-import StatusBar from '../StatusBar';
 
 interface OnboardingScreenProps {
   onComplete: () => void;
@@ -120,7 +119,6 @@ export default function OnboardingScreen({ onComplete }: OnboardingScreenProps) 
       onTouchEnd={handleTouchEnd}
     >
       <div className="pointer-events-none relative z-20">
-        <StatusBar transparent light />
       </div>
 
       {/* Background image and decorative gradient never receive taps. */}

@@ -1,14 +1,15 @@
-import heroSlidePrimaryImage from '../../../assets/images/splash-hero.svg';
-import heroSlideSignatureImage from '../../../assets/images/featured-signature.svg';
-import heroSlideAmbienceImage from '../../../assets/images/featured-ambience.svg';
-import chefPickSteakImage from '../../../assets/images/course-steak.svg';
-import chefPickSalmonImage from '../../../assets/images/course-salmon.svg';
-import chefPickAppetizerImage from '../../../assets/images/course-appetizer.svg';
-import popularPastaImage from '../../../assets/images/popular-pasta.svg';
-import popularFondantImage from '../../../assets/images/popular-fondant.svg';
-import popularSalmonVariationImage from '../../../assets/images/popular-salmon-variation.svg';
-import specialChefTableImage from '../../../assets/images/special-chef-table.svg';
-import specialSeasonalImage from '../../../assets/images/special-seasonal.svg';
+import heroSlidePrimaryImage from '../../../assets/images/hero-premium-photo.svg';
+import heroSlideSignatureImage from '../../../assets/images/hero-premium-photo.svg';
+import heroSlideAmbienceImage from '../../../assets/images/hero-premium-photo.svg';
+import chefPickSteakImage from '../../../assets/images/chef-steak-photo.svg';
+import chefPickSalmonImage from '../../../assets/images/chef-salmon-photo.svg';
+import chefPickAppetizerImage from '../../../assets/images/chef-appetizer-photo.svg';
+import popularPastaImage from '../../../assets/images/popular-pasta-photo.svg';
+import popularFondantImage from '../../../assets/images/popular-fondant-photo.svg';
+import popularSalmonVariationImage from '../../../assets/images/popular-salmon-variation-photo.svg';
+import specialChefTableImage from '../../../assets/images/special-chef-table-photo.svg';
+import specialSeasonalImage from '../../../assets/images/special-seasonal-photo.svg';
+import fallbackFoodImage from '../../../assets/images/chef-steak-photo.svg';
 import { useState, useRef } from 'react';
 import { Search, ShoppingCart, Bell, Star, ChevronRight, Flame, Award, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -113,7 +114,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <img src={heroSlides[heroIndex].image} alt="" className="w-full h-full object-cover" />
+              <img src={heroSlides[heroIndex].image} alt="" className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.05) 30%, rgba(10,10,10,0.7) 65%, rgba(10,10,10,0.97) 100%)' }} />
             </motion.div>
           </AnimatePresence>
@@ -295,7 +296,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
                 whileTap={{ scale: 0.97 }}
               >
                 <div className="relative" style={{ height: '130px' }}>
-                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" />
+                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(20,20,20,0.8) 100%)' }} />
                   <div className="absolute top-2 right-2 flex items-center gap-1 rounded-full px-2 py-1" style={{ background: 'rgba(10,10,10,0.75)', backdropFilter: 'blur(8px)' }}>
                     <Star className="w-3 h-3" style={{ color: GOLD, fill: GOLD }} />
@@ -360,7 +361,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
                 transition={{ delay: 0.05 * idx }}
               >
                 <div className="relative rounded-xl overflow-hidden flex-shrink-0" style={{ width: '80px', height: '80px' }}>
-                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" />
+                  <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p style={{ color: '#FAFAF8', fontFamily: "'DM Sans', sans-serif", fontSize: '15px', fontWeight: 600, marginBottom: '3px' }}>{dish.name}</p>
@@ -398,7 +399,7 @@ export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
                 style={{ width: '240px', height: '160px' }}
                 whileTap={{ scale: 0.97 }}
               >
-                <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" />
+                <img src={dish.image} alt={dish.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.src = fallbackFoodImage; }} />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.8) 100%)' }} />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <p style={{ color: GOLD, fontFamily: "'DM Sans', sans-serif", fontSize: '10px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '3px' }}>{dish.category}</p>

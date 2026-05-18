@@ -35,6 +35,11 @@ jobs:
       - name: Build web app
         run: npm run build
 
+      - name: Recreate Capacitor Android project
+        run: |
+          rm -rf android
+          npx cap add android
+
       - name: Sync Capacitor Android project
         run: npx cap sync android
 

@@ -10,9 +10,6 @@ on:
 jobs:
   build-android-debug-apk:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Premium Restaurant App Design (1)
 
     steps:
       - name: Checkout repository
@@ -30,12 +27,24 @@ jobs:
           java-version: '17'
 
       - name: Install dependencies
+        working-directory: Premium Restaurant App Design (1)
         run: npm install
 
       - name: Build web app
+        working-directory: Premium Restaurant App Design (1)
         run: npm run build
 
+      - name: Add Android platform (if missing)
+        working-directory: Premium Restaurant App Design (1)
+        run: |
+          if [ ! -d android ]; then
+            npx cap add android
+          else
+            echo "android/ already exists; skipping npx cap add android"
+          fi
+
       - name: Sync Capacitor Android project
+        working-directory: Premium Restaurant App Design (1)
         run: npx cap sync android
 
       - name: Build Android debug APK

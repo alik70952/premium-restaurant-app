@@ -1,3 +1,4 @@
+import splashHeroImage from '../../../assets/images/splash-hero.svg';
 import { useEffect } from 'react';
 import { motion } from 'motion/react';
 
@@ -21,7 +22,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         transition={{ duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <img
-          src="https://images.unsplash.com/photo-1642477303430-ad6b97b6ad78?w=800&q=90"
+          src={splashHeroImage}
           alt="Restaurant"
           className="w-full h-full object-cover"
         />

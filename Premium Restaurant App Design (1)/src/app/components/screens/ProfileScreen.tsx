@@ -1,3 +1,4 @@
+import profileAvatarImage from '../../../assets/images/profile-avatar.svg';
 import { ArrowLeft, ChevronRight, Bell, Globe, HelpCircle, Shield, LogOut, CreditCard, MapPin, Crown, Edit3 } from 'lucide-react';
 import { motion } from 'motion/react';
 import StatusBar from '../StatusBar';
@@ -67,7 +68,7 @@ export default function ProfileScreen({ onBack, navigate }: ProfileScreenProps) 
           <div className="flex items-start gap-4">
             <div className="relative">
               <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Avatar" className="w-full h-full object-cover" />
+                <img src={profileAvatarImage} alt="Avatar" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center" style={{ background: GOLD }}>
                 <Edit3 className="w-3 h-3 text-black" />

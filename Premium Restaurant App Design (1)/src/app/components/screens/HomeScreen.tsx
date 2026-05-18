@@ -1,3 +1,14 @@
+import heroSlidePrimaryImage from '../../../assets/images/splash-hero.svg';
+import heroSlideSignatureImage from '../../../assets/images/featured-signature.svg';
+import heroSlideAmbienceImage from '../../../assets/images/featured-ambience.svg';
+import chefPickSteakImage from '../../../assets/images/course-steak.svg';
+import chefPickSalmonImage from '../../../assets/images/course-salmon.svg';
+import chefPickAppetizerImage from '../../../assets/images/course-appetizer.svg';
+import popularPastaImage from '../../../assets/images/popular-pasta.svg';
+import popularFondantImage from '../../../assets/images/popular-fondant.svg';
+import popularSalmonVariationImage from '../../../assets/images/popular-salmon-variation.svg';
+import specialChefTableImage from '../../../assets/images/special-chef-table.svg';
+import specialSeasonalImage from '../../../assets/images/special-seasonal.svg';
 import { useState, useRef } from 'react';
 import { Search, ShoppingCart, Bell, Star, ChevronRight, Flame, Award, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -17,19 +28,19 @@ const SURFACE = '#1C1C1C';
 
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1642477303430-ad6b97b6ad78?w=800&q=90',
+    image: heroSlidePrimaryImage,
     tag: 'CHEF EMPFEHLUNG',
     title: 'Abendmenü\nSignatur',
     sub: 'Heute ab 18:00 Uhr',
   },
   {
-    image: 'https://images.unsplash.com/photo-1531973968078-9bb02785f13d?w=800&q=90',
+    image: heroSlideSignatureImage,
     tag: 'NEUES ANGEBOT',
     title: 'Tasting\nMenü',
     sub: '5 Gänge · CHF 145',
   },
   {
-    image: 'https://images.unsplash.com/photo-1673706530246-4c1d8b141748?w=800&q=90',
+    image: heroSlideAmbienceImage,
     tag: 'SAISON SPECIAL',
     title: 'Sommer\nSpezialitäten',
     sub: 'Frisch & Saisonal',
@@ -45,20 +56,20 @@ const categories = [
 ];
 
 const chefPicks: FoodItem[] = [
-  { id: 'c1', name: 'Dry Aged Rindersteak', description: 'Rotweinreduktion & Trüffelkartoffeln', price: 58, image: 'https://images.unsplash.com/photo-1558030018-d461fe79233e?w=400&q=80', category: 'Hauptgerichte', rating: 4.9, reviews: 203 },
-  { id: 'c2', name: 'Atlantik-Lachs', description: 'Kräuterbutter & Saisongemüse', price: 42.5, image: 'https://images.unsplash.com/photo-1676471926534-d5c9771909fa?w=400&q=80', category: 'Hauptgerichte', rating: 4.8, reviews: 124 },
-  { id: 'c3', name: 'Gourmet Vorspeise', description: 'Auswahl feiner Spezialitäten', price: 28.5, image: 'https://images.unsplash.com/photo-1616671285410-2a676a9a433d?w=400&q=80', category: 'Vorspeisen', rating: 4.7, reviews: 89 },
+  { id: 'c1', name: 'Dry Aged Rindersteak', description: 'Rotweinreduktion & Trüffelkartoffeln', price: 58, image: chefPickSteakImage, category: 'Hauptgerichte', rating: 4.9, reviews: 203 },
+  { id: 'c2', name: 'Atlantik-Lachs', description: 'Kräuterbutter & Saisongemüse', price: 42.5, image: chefPickSalmonImage, category: 'Hauptgerichte', rating: 4.8, reviews: 124 },
+  { id: 'c3', name: 'Gourmet Vorspeise', description: 'Auswahl feiner Spezialitäten', price: 28.5, image: chefPickAppetizerImage, category: 'Vorspeisen', rating: 4.7, reviews: 89 },
 ];
 
 const popularDishes: FoodItem[] = [
-  { id: 'p1', name: 'Hausgemachte Pasta', description: 'Trüffel-Sahnesauce & Parmesan', price: 32, image: 'https://images.unsplash.com/photo-1751890939642-52aa0d543bd0?w=400&q=80', category: 'Hauptgerichte', rating: 4.6, reviews: 156 },
-  { id: 'p2', name: 'Schokoladen-Fondant', description: 'Mit Vanilleeis & Karamell', price: 18, image: 'https://images.unsplash.com/photo-1556940185-a527df03afcd?w=400&q=80', category: 'Desserts', rating: 4.8, reviews: 211 },
-  { id: 'p3', name: 'Lachsvariation', description: 'Auf Kräutersalat & Rote Bete', price: 36, image: 'https://images.unsplash.com/photo-1676300185165-3f543c1fcb72?w=400&q=80', category: 'Hauptgerichte', rating: 4.7, reviews: 98 },
+  { id: 'p1', name: 'Hausgemachte Pasta', description: 'Trüffel-Sahnesauce & Parmesan', price: 32, image: popularPastaImage, category: 'Hauptgerichte', rating: 4.6, reviews: 156 },
+  { id: 'p2', name: 'Schokoladen-Fondant', description: 'Mit Vanilleeis & Karamell', price: 18, image: popularFondantImage, category: 'Desserts', rating: 4.8, reviews: 211 },
+  { id: 'p3', name: 'Lachsvariation', description: 'Auf Kräutersalat & Rote Bete', price: 36, image: popularSalmonVariationImage, category: 'Hauptgerichte', rating: 4.7, reviews: 98 },
 ];
 
 const seasonals: FoodItem[] = [
-  { id: 's1', name: 'Chefs Table Menü', description: 'Exklusives 7-Gänge-Erlebnis', price: 165, image: 'https://images.unsplash.com/photo-1753229695018-bf8103cee6d7?w=400&q=80', category: 'Special', rating: 5.0, reviews: 42 },
-  { id: 's2', name: 'Saisonale Spezialität', description: 'Frische Zutaten vom Markt', price: 38, image: 'https://images.unsplash.com/photo-1714579340610-88f3a5ce6a18?w=400&q=80', category: 'Hauptgerichte', rating: 4.9, reviews: 67 },
+  { id: 's1', name: 'Chefs Table Menü', description: 'Exklusives 7-Gänge-Erlebnis', price: 165, image: specialChefTableImage, category: 'Special', rating: 5.0, reviews: 42 },
+  { id: 's2', name: 'Saisonale Spezialität', description: 'Frische Zutaten vom Markt', price: 38, image: specialSeasonalImage, category: 'Hauptgerichte', rating: 4.9, reviews: 67 },
 ];
 
 export default function HomeScreen({ navigate, cartCount }: HomeScreenProps) {
